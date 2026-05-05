@@ -1,20 +1,15 @@
 # Notifications
 
-Notifications are temporary "toast" messages that appear at the bottom right of the screen to alert the user.
+Display high-fidelity toast notifications to provide feedback to the user.
 
 ## Usage
 
 ```lua
 Window:Notify({
-    Title = "Welcome",
-    Content = "Kronos UI has finished loading.",
-    Duration = 5, -- Seconds
-    Icon = "check-circle", -- Lucide icon name
-    Buttons = {
-        ["Ok"] = function()
-            print("User clicked Ok")
-        end
-    }
+    Title = "Success",
+    Content = "The configuration has been saved.",
+    Duration = 5,
+    Icon = "check-circle" -- Optional Lucide icon
 })
 ```
 
@@ -22,12 +17,11 @@ Window:Notify({
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `Title` | string | | The main bold text. |
-| `Content` | string | | The description text. |
-| `Duration` | number | `5` | Time in seconds before disappearing. |
-| `Icon` | string | `nil` | Lucide icon name. |
-| `Buttons` | table | `{}` | Dictionary of `[Label] = Callback` for action buttons. |
+| `Title` | string | | Bold header text. |
+| `Content` | string | | Main body text. |
+| `Duration` | number | `5` | Time in seconds before the notification fades. |
+| `Icon` | string | `nil` | Optional icon name. |
 
 ---
 
-Back to: [README](../README.md)
+Next: [Theming](themes.md)

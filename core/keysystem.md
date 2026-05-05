@@ -1,58 +1,54 @@
 # Key System
 
-Kronos includes a built-in, animated Key System that supports custom validation logic or integration with 3rd-party services like **Junkie**.
+The Kronos Key System is an automated security layer that gates your script behind a verification wall. It features a professional, animated interface and seamless integration with the **Junkie SDK**.
 
-## Basic Configuration
-
-```lua
-local Window = Kronos:CreateWindow({
-    Keysystem = {
-        Enabled = true,
-        SaveKey = true, -- Auto-save key to file
-        Title   = "Kronos Verification",
-        Subtitle = "Join Discord for Key",
-        Note    = "Key link: discord.gg/kronos",
-        FileName = "KronosKey", -- The name of the file saved on your PC
-        Key      = "abc-123" -- Single key OR table: {"key1", "key2"}
-    }
-})
-```
-
-## Junkie Integration (Recommended)
-
-If you use [Junkie](https://jnkie.com), Kronos can handle the entire verification flow, including SCRIPT_KEY detection from external loaders and initializing the secure `getgenv().Client` profile.
+## Configuration
 
 ```lua
 Keysystem = {
-    Enabled = true,
-    SaveKey = true,
+    Enabled     = true,
+    SaveKey     = true,         -- Caches key locally for auto-skip
+    Title       = "Verification",
+    Subtitle    = "Kronos Access",
+    Note        = "Join: discord.gg/kronos",
+    FileName    = "MyScriptKey", -- Filename for the local cache
+    
     Provider = {
-        Name = "Junkie",
-        ServiceID = "1234", -- Your Service ID
-        ServiceName = "Kronos" -- Your Service Name
+        Name        = "Junkie",
+        ServiceID   = "1234",    -- Your Junkie Service ID
+        ServiceName = "Kronos"
     }
 }
 ```
 
-### Loading Sequence
+## Smart Features
 
-1. **Manual Entry**: If no saved key exists, the Key System window opens.
-2. **Auto-Skip**: If a valid key exists in `getgenv().SCRIPT_KEY` (External Loader) or your local `FileName.txt`, the UI shows for **2 seconds** before automatically verifying and continuing.
-3. **Setting Up**: After verification, a 5-second "Setting up window..." loader appears while your script builds the UI in the background.
+### 1. Auto-Skip Failsafe (3s Countdown)
+If the library detects a valid cached key (via `getgenv().SCRIPT_KEY` or the local `FileName.txt`), it will display a **3-second countdown** on the "Verify Key" button. During this countdown, the user can **click anywhere** to cancel the auto-verification. This prevents instant-kicks from providers like Junkie when a saved key has expired.
 
-## Advanced Validation
+> **Why?** Without the failsafe, expired saved keys would trigger immediate validation failure, which some providers respond to by disconnecting the user. The countdown gives the user a chance to cancel and manually enter a new key.
 
-You can use a custom function to validate keys (e.g., calling your own API).
+### 2. Failure Feedback
+If a key check fails (manual or automatic), the UI will trigger a **shake animation**, display an **"Invalid key"** status in red, and reset the button after 1 second — allowing the user to retry without restarting the script.
+
+### 3. Real-time Status
+The verification button provides live feedback during the process:
+*   **"Auto-verifying in 3... (Click to cancel)"**: Countdown phase.
+*   **"Verifying key..."**: While contacting the provider API.
+*   **"Valid Key"**: On successful authentication (before transitioning).
+*   **"Invalid key"**: When the provider rejects the token.
+
+### 4. Junkie Profile Hydration
+When using the Junkie provider, Kronos automatically fetches the user's `Client` profile (Discord ID, Premium status, etc.) and populates the [User Info](../core/navigation.md) section.
+
+## Manual Key Overrides
+
+If you prefer to use a static key or a table of keys:
 
 ```lua
 Keysystem = {
     Enabled = true,
-    KeyValidator = function(input)
-        local success, response = pcall(function()
-            return game:HttpGet("https://your-api.com/check?key=" .. input)
-        end)
-        return (success and response == "valid")
-    end
+    Key = "secret-key-123" -- or {"key1", "key2"}
 }
 ```
 

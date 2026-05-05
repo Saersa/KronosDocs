@@ -1,55 +1,46 @@
 # Premium & Locking
 
-Kronos includes a built-in system for gating features behind a premium status or manually locking them.
+Kronos provides a native API for feature gating, allowing you to easily lock individual elements or entire sections based on user access levels.
 
-## Manual Locking
+## Automatic Premium Gating
 
-You can lock any element by setting the `Locked` property to `true`. Locked elements are greyed out and cannot be interacted with.
-
-```lua
-Section:CreateButton({
-    Name = "Admin Feature",
-    Locked = true,
-    LockedTitle = "Admin Required", -- Custom title on the lock overlay
-    Callback = function() end
-})
-```
-
-## Premium Integration
-
-If an element has `Premium = true`, Kronos will automatically check the `getgenv().Client` table for premium status.
-
-### How it works
-
-The library looks for `getgenv().Client.isPremium`. If this is `false`, the element will be locked automatically.
+Every element supports a `Premium` flag. When true, the element is locked by default and displays a custom message.
 
 ```lua
--- Mock Client Data (usually handled by your loader/auth)
-getgenv().Client = {
-    isPremium = false
-}
-
-Section:CreateToggle({
-    Name = "Instant Kill",
-    Premium = true, -- Will be locked if isPremium is false
-    Callback = function() end
-})
-```
-
-### Customizing the Lock Message
-
-You can override the default premium lock messages:
-
-```lua
-Section:CreateSlider({
-    Name = "WalkSpeed",
+Section:Toggle({
+    Name = "Kill Aura",
     Premium = true,
-    LockedTitle = "Premium Only",
-    LockedContent = "Please upgrade your subscription to access this feature.",
-    Callback = function() end
+    LockedTitle = "PURCHASE VIP",
+    Callback = function(v) end
 })
+```
+
+## Manual Locking API
+
+You can programmatically lock or unlock any element at runtime. This is useful for feature dependencies (e.g., locking "Speed Amount" until "Auto Speed" is enabled).
+
+```lua
+local MySlider = Section:Slider({...})
+
+-- Lock the element
+MySlider:Lock()
+
+-- Unlock the element
+MySlider:Unlock()
+
+-- Set state via boolean
+MySlider:SetLockState(true)
+```
+
+## Section Locking
+
+You can also lock an entire `TabSection` if needed:
+
+```lua
+local SecretSection = Window:Section({ Title = "Classified" })
+-- Logic here
 ```
 
 ---
 
-Next: [Configuration System](config.md)
+Next: [Configuration](config.md)

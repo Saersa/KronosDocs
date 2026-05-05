@@ -7,13 +7,17 @@
 * [Window](core/window.md)
 * [Key System](core/keysystem.md)
 * [Navigation](core/navigation.md)
+* [Full Example](core/example.md)
 
 ## Elements
 * [Overview](elements/README.md)
 * [Buttons](elements/button.md)
+* [Hold Buttons](elements/holdbutton.md)
 * [Toggles](elements/toggle.md)
 * [Slider](elements/slider.md)
 * [Dropdowns](elements/dropdown.md)
+* [Multi Dropdown](elements/multidropdown.md)
+* [Input](elements/input.md)
 * [Color Picker](elements/colorpicker.md)
 * [Keybind](elements/keybind.md)
 * [Paragraph](elements/paragraph.md)

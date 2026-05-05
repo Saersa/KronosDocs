@@ -1,66 +1,27 @@
-# Getting Started
+# Loadstring
 
-This guide will help you create your first window and add basic elements to your UI.
+To begin using Kronos v1.1, simply execute the following loadstring at the top of your script. This version introduces **secure locking**, **centered layouts**, and **background hydration**.
 
-## Basic Example
-
-Kronos is designed to handle all your loading and security logic automatically. Here is a professional setup using the latest linear loading flow.
+## Standard Execution
 
 ```lua
 local Kronos = loadstring(game:HttpGet("https://kronosscripts.vercel.app/raw/UILibrary.lua"))()
-
--- 1. Create the Window
--- This function will handle the Splash Screen and Key System automatically.
--- It will pause your script (yield) until the user is verified!
-local Window = Kronos:CreateWindow({
-    Title       = "Kronos Library",
-    SubTitle    = "v1.0.0",
-    Icon        = "Dynamic", -- Uses theme icon
-    Theme       = "KronosRed",
-    Size        = Vector2.new(650, 450),
-    
-    -- Key System configuration
-    Keysystem = {
-        Enabled = true,
-        SaveKey = true,
-        Title   = "Kronos Access",
-        Provider = { Name = "Junkie", ServiceID = "1078290" } -- Automatic Junkie integration
-    },
-    
-    -- Optional loading screen before key system
-    LoadingScreen = { Enabled = true, Title = "Kronos", Duration = 3 }
-})
-
--- 2. Create a Sidebar Category
-local MainSection = Window:Section({ Title = "Combat", Icon = "swords" })
-
--- 3. Create a Tab (Page)
-local KillAuraTab = MainSection:Tab({ Name = "Kill Aura", Icon = "zap" })
-
--- 4. Create a Visual Section on the Page
-local SettingsGroup = KillAuraTab:CreateSection("Aura Settings")
-
--- 5. Add Elements
-SettingsGroup:CreateToggle({
-    Name = "Enabled",
-    Callback = function(state)
-        print("Kill Aura:", state)
-    end
-})
 ```
 
-## How it Works
+## Developer Notes
 
-### 1. Automatic Sequencing
-When you call `CreateWindow`, the library starts a sequence:
-1. **Loader 1**: Your splash screen.
-2. **Key System**: Authenticates the user (auto-skips if they have a saved key).
-3. **Loader 2**: Shows a "Setting up window..." screen.
+*   **Non-Blocking Hydration**: `CreateWindow` no longer blocks your script. You can build your entire UI while the Key System or Loading Screen is visible.
+*   **API Parity**: Use the new `Tab:Section` and `Tab:Toggle` aliases for cleaner code.
+*   **Security**: Premium gating is now handled via a secure memory-based locking system, making it significantly harder to bypass than attribute-based systems.
+*   **Assets**: All icons are bundled into the library—no more external HTTP requests for basic UI assets.
 
-**Crucially**, `CreateWindow` returns the `Window` object as soon as Loader 2 starts. This means your script continues to build all your tabs and sections *while* the "Setting up" screen covers the empty window. By the time the loader finishes, your UI is fully built!
+## Minimum Requirements
 
-### 2. Linear Flow
-You no longer need to wrap your entire script in an `OnReady` function. Simply write your code after `CreateWindow`. The library ensures that your script only progresses once the user is verified.
+| Feature | Requirement |
+| :--- | :--- |
+| **Executor** | Level 7+ (Supporting `game:HttpGet` and `loadstring`) |
+| **Roblox Environment** | Client-side only |
+| **Internet Access** | Required for initial library and asset loading |
 
 ---
 

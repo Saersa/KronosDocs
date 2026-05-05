@@ -1,6 +1,6 @@
-# Window Configuration
+# Window
 
-The `CreateWindow` function is the entry point for your UI. It accepts a variety of options to customize the appearance and behavior of the window.
+The `CreateWindow` function is the foundation of your interface. It initializes the library state, handles the dual-loader sequence, and sets up the primary ScreenGui.
 
 ## Usage
 
@@ -8,86 +8,83 @@ The `CreateWindow` function is the entry point for your UI. It accepts a variety
 local Window = Kronos:CreateWindow(options)
 ```
 
-## Options Reference
+## Options Configuration
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `Title` | string | `"Kronos"` | The main title of the window. |
-| `SubTitle` | string | `""` | A small subtitle shown next to the title. |
-| `Icon` | string | `nil` | The asset ID for the window icon (or "Dynamic"). |
-| `IconSize` | number | `48` | The size of the window icon. |
-| `Size` | Vector2 | `Vector2.new(650, 450)` | The dimensions of the window. |
-| `Theme` | string | `"KronosRed"` | The initial theme name. |
-| `ToggleUI` | Enum.KeyCode | `Enum.KeyCode.RightShift` | The key used to hide/show the UI. |
-| `Acrylic` | boolean | `true` | Enables/disables the blur effect. |
-| `SearchBar` | boolean | `true` | Shows a search bar in the sidebar for tabs. |
-| `KeyExpiry` | boolean | `false` | Shows a key expiration timer in the footer. |
-| `Keysystem` | table | `nil` | Configuration for the built-in key system. |
-| `OnReady` | function | `nil` | Callback that fires when the UI is verified. |
+| `Title` | string | `"Kronos"` | The primary title shown in the header. |
+| `SubTitle` | string | `""` | Secondary label for versioning or status. |
+| `Icon` | string | `nil` | Asset ID for branding. Use `"Dynamic"` for theme default. |
+| `IconSize` | number | `48` | Size of the header icon in pixels. |
+| `Theme` | string | `"Batman"` | Initial color palette. |
+| `Size` | Vector2 | `600, 400` | Default window dimensions. |
+| `ToggleUI` | KeyCode | `RightControl` | Hotkey to hide/show the interface. |
+| `Acrylic` | boolean | `false` | Enables glassmorphic background blur overlay. |
+| `BackgroundImage` | string | `""` | Optional Roblox asset ID for the window background. Hidden when empty. |
+| `BackgroundTransparency` | number | `0.8` | The transparency of the background image itself. |
+| `UIBackgroundTransparency` | number | `0` | Controls Sidebar and Content panel transparency so backgrounds show through. |
+| `SearchBar` | boolean | `false` | Enables global element search in the sidebar. |
+| `KeyExpiry` | boolean | `false` | Shows Junkie license expiration in the settings popup. |
+| `UserInfo` | table | `nil` | Configures footer user profile display. |
+| `LoadingScreen` | table | `nil` | Configures the splash screen sequence. |
+| `Keysystem` | table | `nil` | Configures integrated authentication. |
 
-### Key System
+## Advanced Loading Logic
 
-The built-in Key System supports multiple providers (like Junkie) and handles local key caching automatically.
+Kronos uses a **Background-Hydration** pattern to ensure zero lag. When you call `CreateWindow`:
+
+1.  **Loader 1**: Displays your custom branding splash.
+2.  **Auth Layer**: The Key System validates the user.
+3.  **Loader 2**: A "Setting up window..." screen covers the UI.
+4.  **Hydration**: Your script continues running and builds your tabs.
+5.  **Reveal**: Once Loader 2 finishes, the window fades in **fully populated**.
+
+## Window Methods
+
+| Method | Description |
+| :--- | :--- |
+| `Window:SetTitle(text)` | Changes the window title dynamically. |
+| `Window:SetSubtitle(text)` | Changes the subtitle dynamically. |
+| `Window:SetBackgroundImage(id, transparency)` | Sets or clears the background image. Pass `nil` to hide. |
+| `Window:SetBlur(val)` | Sets blur overlay. `1` = enabled, `0` = disabled. |
+| `Window:SetToggleKeybind(keyCode)` | Changes the UI toggle hotkey at runtime. |
+| `Window:Notify(options)` | Displays a notification toast. |
+| `Window:Dialog(options)` | Shows a confirmation dialog with buttons. |
+| `Window:SaveSettings()` | Manually saves theme, blur, and lock state. |
+| `Window:LoadSettings()` | Loads saved settings from disk. |
+
+## Full Example
 
 ```lua
 local Window = Kronos:CreateWindow({
+    Title       = "Kronos - Test",
+    SubTitle    = "v1.1",
+    Icon        = "Dynamic",
+    IconSize    = 48,
+    Theme       = "Space",
+    ToggleUI    = Enum.KeyCode.RightControl,
+    Acrylic     = false,
+    SearchBar   = true,
+    
+    -- Background Image (optional)
+    BackgroundImage = "rbxassetid://11419713314",
+    BackgroundTransparency = 0.85,
+    UIBackgroundTransparency = 0.15,
+    
     Keysystem = {
         Enabled = true,
         SaveKey = true,
-        Title   = "Kronos Access",
-        Subtitle = "Verification System",
-        Provider = { 
-            Name = "Junkie", 
-            ServiceID = "1078290", 
-            ServiceName = "Kronos" 
-        }
-    }
-})
-```
-See [Key System](keysystem.md) for full details.
-
-### Loading Screen
-
-You can configure the splash screen (Loader 1) that plays before the Key System.
-
-```lua
-local Window = Kronos:CreateWindow({
+        Provider = { Name = "Junkie", ServiceID = "1234" }
+    },
+    
     LoadingScreen = {
         Enabled     = true,
-        Duration    = 3, -- Seconds
-        Title       = "Project Name",
-        Description = "Loading modules...",
-        Icon        = "Dynamic"
+        Duration    = 3,
+        Title       = "Project Kronos",
+        Description = "Loading core modules..."
     }
 })
 ```
-
-### User Info Footer
-
-Shows user details (Discord username/avatar) at the bottom of the sidebar. This integrates automatically with the Junkie `Client` profile.
-
-```lua
-local Window = Kronos:CreateWindow({
-    UserInfo = {
-        Enabled = true,
-        Anonymous = false, -- Set true to hide Discord tag
-        Clicked = function()
-            print("User profile opened")
-        end
-    }
-})
-```
-
-## Methods
-
-### `Window:Notify(options)`
-Shows a toast notification. See [Notifications](../advanced/notifications.md) for details.
-
-### `Window:SetToggleKeybind(key)`
-Dynamically changes the key used to toggle the UI.
-
-### `Window:SetGlow(state)`
-Enables or disables the accent glow effects globally.
 
 ---
 

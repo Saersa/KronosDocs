@@ -1,30 +1,47 @@
 # Paragraph
 
-Paragraphs are versatile display elements used for instructions, descriptions, or information blocks. They support thumbnails and multiple action buttons.
+A rich information card used to display instructions, credits, or status updates. Supports icons and interactive buttons.
 
 ## Usage
 
 ```lua
-Section:CreateParagraph({
-    Title = "Important Note",
-    Content = "This is a paragraph with content, a thumbnail, and buttons.",
-    Thumbnail = "rbxassetid://6031289329",
+local Info = Section:Paragraph({
+    Title = "Support",
+    Description = "Join our Discord for updates and help.",
+    Icon = "info",
     Buttons = {
-        ["Dismiss"] = function() print("Dismissed") end,
-        ["Learn More"] = function() print("Opening link...") end
+        ["Copy Link"] = function()
+            setclipboard("discord.gg/kronos")
+        end
     }
 })
 ```
 
 ## Options
 
-| Property | Type | Description |
-| :--- | :--- | :--- |
-| `Title` | string | The bold title at the top. |
-| `Content` | string | The main text body. |
-| `Thumbnail` | string | (Optional) Asset ID for an image on the left. |
-| `Buttons` | table | (Optional) Dictionary of `[Label] = Callback` for action buttons. |
+| Property | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `Title` | string | | Bold header text. |
+| `Description` | string | | Main body text. |
+| `Icon` | string | `nil` | Lucide icon name. |
+| `Buttons` | table | `{}` | Dictionary of `[ButtonText] = Callback`. |
+
+## Methods
+
+### `:Update(config)`
+Dynamically updates the content. Perfect for live logs or status indicators.
+
+```lua
+Info:Update({
+    Title = "Status: Online",
+    Description = "Modules have been successfully hydrated.",
+    Icon = "check-circle"
+})
+```
+
+### `:SetVisible(boolean)`
+Standard visibility control.
 
 ---
 
-Next: [Premium & Locking](../advanced/premium.md)
+Next: [Slider](slider.md)

@@ -1,39 +1,44 @@
 # Theming
 
-Kronos supports dynamic themes and accent colors to allow users to personalize their experience.
-
-## Switching Themes
-
-You can change the theme at any time using the `SetTheme` method.
-
-```lua
-Kronos:SetTheme("KronosBlue")
-```
+Kronos features a robust theming engine with multiple premium palettes.
 
 ## Built-in Themes
-- `KronosRed` (Default)
-- `KronosBlue`
-- `KronosPurple`
-- `KronosGreen`
 
-## Getting Available Themes
+| Theme | Aesthetic |
+| :--- | :--- |
+| `Batman` | Dark blue and matte black with neon teal accents. |
+| `Ocean` | Deep sea blue with soft cyan highlights. |
+| `Space` | Midnight purple with vibrant violet accents. |
+| `Disco` | High-contrast dark mode with neon pink highlights. |
+| `KronosRed` | Official branding (Red/Black). |
+| `KronosBlue` | Official branding (Blue/Black). |
+| `KronosPurple` | Official branding (Purple/Black). |
+| `KronosGreen` | Official branding (Green/Black). |
 
-To populate a dropdown with all available themes:
+## Usage
 
+### At Initialization
 ```lua
-local Themes = Kronos:GetThemes() -- Returns a list of theme names
+local Window = Kronos:CreateWindow({
+    Theme = "Space"
+})
 ```
 
-## Custom Themes
+### At Runtime
+```lua
+Kronos:SetTheme("Batman")
+```
 
-You can add your own themes by providing a color table to `Kronos:AddTheme`.
+## Creating Custom Themes
+
+You can register your own color palettes using `Kronos:AddTheme`:
 
 ```lua
 Kronos:AddTheme({
-    Name = "Ocean",
-    Accent = Color3.fromRGB(0, 150, 255),
-    Background = Color3.fromRGB(15, 15, 20),
-    -- ... more colors
+    Name = "MyTheme",
+    Main = Color3.fromRGB(20, 20, 20),
+    Accent = Color3.fromRGB(255, 100, 0),
+    -- See Theme module for full color table keys
 })
 ```
 

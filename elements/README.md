@@ -1,35 +1,50 @@
 # Elements Overview
 
-Elements are the interactive components of your UI. All elements are added to a **Page Section**.
+Kronos provides a rich set of interactive UI elements. All elements share a **unified API surface** for consistency.
 
-## Common Features
+## Universal Methods (v1.1)
 
-Most elements support the following properties:
+Every element created via `Section:Element(...)` returns an object with the following standard methods:
 
-- `Name`: The label for the element.
-- `Description`: (Optional) Subtext explaining the feature.
-- `Locked`: (Optional) If true, the element is visually locked and unclickable.
-- `Premium`: (Optional) If true, automatically locks if the user does not have a premium subscription.
-- `ConfigId`: (Optional) A unique string for the configuration system to save/load the value.
+| Method | Description |
+| :--- | :--- |
+| `:Update(config)` | Dynamically updates the element's properties (Name, Description, etc.). |
+| `:Lock()` | Locks the element, preventing user interaction. Displays a lock icon. |
+| `:Unlock()` | Unlocks the element, restoring full interactivity. |
+| `:SetLockState(boolean)` | Sets the locked state programmatically. `true` = locked. |
+| `:SetVisible(boolean)` | Shows or hides the element. |
+| `:SetValue(value)` | Manually sets the element's current value (type varies by element). |
+
+## Premium Gating
+
+Any element can be gated behind a premium flag:
+
+```lua
+Section:Button({
+    Name = "VIP Feature",
+    Premium = true,
+    LockedTitle = "PURCHASE ACCESS",
+    Callback = function() end
+})
+```
+
+Premium elements are automatically locked with a custom title until manually unlocked via `:Unlock()`.
 
 ## Available Elements
 
-### Inputs
-- [Button](button.md): Standard click action.
-- [Hold Button](button.md#hold-button): Requires holding for a duration.
-- [Toggle](toggle.md): Boolean switch.
-- [Slider](slider.md): Range selector.
-- [Dropdown](dropdown.md): Single selection list.
-- [Multi Dropdown](dropdown.md#multi-dropdown): Multiple selection list.
-- [Color Picker](colorpicker.md): RGB color selector.
-
-### Keybinds
-- [Keybind](keybind.md): Standard key trigger.
-- [Keybind Toggle](keybind.md#keybind-toggle): A toggle controlled by a key.
-
-### Display
-- [Paragraph](paragraph.md): Formatted text with support for icons and buttons.
+| Element | Page |
+| :--- | :--- |
+| Button | [button.md](button.md) |
+| Hold Button | [holdbutton.md](holdbutton.md) |
+| Toggle | [toggle.md](toggle.md) |
+| Slider | [slider.md](slider.md) |
+| Dropdown | [dropdown.md](dropdown.md) |
+| Multi Dropdown | [multidropdown.md](multidropdown.md) |
+| Input | [input.md](input.md) |
+| Color Picker | [colorpicker.md](colorpicker.md) |
+| Keybind | [keybind.md](keybind.md) |
+| Paragraph | [paragraph.md](paragraph.md) |
 
 ---
 
-Next: [Buttons](button.md)
+Next: [Button](button.md)

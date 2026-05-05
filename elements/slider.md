@@ -1,18 +1,19 @@
 # Slider
 
-Sliders allow users to select a value within a specific range.
+A draggable slider for selecting a numeric value within a range.
 
 ## Usage
 
 ```lua
-Section:CreateSlider({
+Section:Slider({
     Name = "WalkSpeed",
+    Description = "Adjust your character's speed.",
     Min = 16,
     Max = 100,
     Default = 16,
-    ConfigId = "PlayerSpeed",
-    Callback = function(val)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = val
+    Suffix = " studs", -- Optional text added to the value
+    Callback = function(v)
+        print("Value:", v)
     end
 })
 ```
@@ -22,12 +23,27 @@ Section:CreateSlider({
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
-| `Min` | number | `0` | Minimum possible value. |
-| `Max` | number | `100` | Maximum possible value. |
-| `Default` | number | `Min` | Initial value. |
-| `ConfigId` | string | | ID for the config system. |
+| `Description` | string | `nil` | Optional text shown below the title. |
+| `Min` | number | `0` | Minimum allowed value. |
+| `Max` | number | `100` | Maximum allowed value. |
+| `Default` | number | `50` | Initial value. |
+| `Suffix` | string | `""` | Text appended to the number display. |
 | `Callback` | function | | Fired when the value changes. |
+
+## Methods
+
+### `:Update(config)`
+Updates labels or range.
+
+### `:SetValue(number)`
+Manually sets the slider value (automatically clamped).
+
+### `:GetValue()`
+Returns the current number.
+
+### `:Lock()` / `:Unlock()`
+Standard interaction locking.
 
 ---
 
-Next: [Dropdown](dropdown.md)
+Next: [Toggle](toggle.md)

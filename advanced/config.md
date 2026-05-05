@@ -1,40 +1,40 @@
 # Configuration System
 
-Kronos features an automated configuration system that allows you to save and load user settings with ease.
+Kronos includes a built-in JSON-based configuration system that automatically handles saving and loading your script's settings.
 
 ## Registering Elements
 
-To make an element "savable", simply provide a unique `ConfigId` string.
+To make an element saveable, simply provide a `ConfigId` in its options.
 
 ```lua
-Section:CreateToggle({
-    Name = "Aimbot",
-    ConfigId = "Combat_Aimbot", -- Must be unique
+Section:Toggle({
+    Name = "Auto Farm",
+    ConfigId = "AutoFarmToggle", -- Unique identifier
+    Default = false,
     Callback = function(v) end
 })
 ```
 
-## Saving and Loading
+## Manual Control
 
-The library provides global methods to manage the configuration files.
+The library handles auto-saving by default if enabled in the Settings popup. You can also trigger it manually:
 
 ### `Kronos:SaveConfig(filename)`
-Saves all registered elements to a JSON file in the executor's workspace folder.
+Saves all registered elements to a file in the `Kronos/configs/` folder.
 
 ```lua
-Kronos:SaveConfig("my_settings") -- Saves to "my_settings.json"
+Kronos:SaveConfig("MyCustomSettings")
 ```
 
 ### `Kronos:LoadConfig(filename)`
-Loads settings from a file and automatically updates all registered UI elements.
+Loads settings from a specific file and updates all UI elements.
 
 ```lua
-Kronos:LoadConfig("my_settings")
+Kronos:LoadConfig("MyCustomSettings")
 ```
 
-## Best Practices
-- Use prefixes for `ConfigId` to avoid collisions (e.g., `Combat_`, `Visuals_`).
-- Call `LoadConfig` after all elements have been created to ensure they are updated correctly.
+## Global Settings
+The library automatically saves its own internal state (Theme, Blur, Lock state) to `Kronos/settings.json`.
 
 ---
 

@@ -1,59 +1,50 @@
-# Toggles
+# Toggle
 
-Toggles are boolean switches used for enabling/disabling features.
+A boolean switch that can be turned on or off.
 
-## Standard Toggle
-
-### Usage
+## Usage
 
 ```lua
-Section:CreateToggle({
+Section:Toggle({
     Name = "Aimbot",
+    Description = "Automatically target players.",
     Default = false,
-    ConfigId = "AimbotToggle",
-    Callback = function(state)
-        print("Aimbot is now:", state)
+    Callback = function(v)
+        print("Aimbot is now:", v)
     end
 })
 ```
 
-### Options
+## Options
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
+| `Description` | string | `nil` | Optional text shown below the title. |
 | `Default` | boolean | `false` | Initial state. |
-| `ConfigId` | string | | ID for the config system. |
-| `Callback` | function | | Fired when the state changes. |
+| `Callback` | function | | Fired when the state toggles. |
 
----
+## Methods
 
-## Keybind Toggle
-
-A toggle that can also be activated by a specific keybind.
-
-### Usage
+### `:Update(config)`
+Dynamically updates properties.
 
 ```lua
-Section:CreateKeybindToggle({
-    Name = "Fly (F)",
-    Keybind = Enum.KeyCode.F,
-    Default = false,
-    Callback = function(state)
-        print("Fly is now:", state)
-    end
+MyToggle:Update({
+    Name = "Silent Aim",
+    Description = "Uses memory-based targeting."
 })
 ```
 
-### Options
+### `:SetValue(boolean)`
+Manually sets the toggle state.
 
-| Property | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `Name` | string | | The display name. |
-| `Keybind` | Enum.KeyCode | | The key that toggles the state. |
-| `Default` | boolean | `false` | Initial state. |
-| `Callback` | function | | Fired when toggled. |
+### `:GetValue()`
+Returns the current boolean value.
+
+### `:Lock()` / `:Unlock()`
+Standard interaction locking.
 
 ---
 
-Next: [Slider](slider.md)
+Next: [Color Picker](colorpicker.md)
