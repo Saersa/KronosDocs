@@ -23,6 +23,7 @@ Section:Keybind({
 | `Description` | string | `nil` | Optional text shown below the title. |
 | `Button` | Enum.KeyCode | `nil` | The initial key assigned. |
 | `Default` | Enum.KeyCode | `nil` | Legacy alias for `Button`. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
 | `Callback` | function | | Fired when the assigned key is pressed. |
 
 ## Keybind Toggle (Special Element)
@@ -48,8 +49,22 @@ Updates binding or labels.
 ### `:SetValue(Enum.KeyCode)`
 Manually re-binds the key.
 
+### `:GetValue()`
+Returns the current keybind.
+
 ### `:Lock()` / `:Unlock()`
 Standard interaction locking.
+
+## Keybind Toggle Methods
+
+`KeybindToggle` supports:
+
+- `:SetValue(boolean)`
+- `:GetValue()`
+- `:SetKeybind(Enum.KeyCode)`
+- `:GetKeybind()`
+- `:Update(config)`
+- `:Lock()` / `:Unlock()`
 
 ---
 

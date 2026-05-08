@@ -36,10 +36,17 @@ You can register your own color palettes using `Kronos:AddTheme`:
 ```lua
 Kronos:AddTheme({
     Name = "MyTheme",
-    Main = Color3.fromRGB(20, 20, 20),
+    Background = Color3.fromRGB(20, 20, 20),
     Accent = Color3.fromRGB(255, 100, 0),
     -- See Theme module for full color table keys
 })
+```
+
+To inspect available themes at runtime:
+
+```lua
+print(Kronos:GetCurrentTheme())
+print(table.concat(Kronos:GetThemes(), ", "))
 ```
 
 ---

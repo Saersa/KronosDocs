@@ -22,8 +22,10 @@ Section:Dropdown({
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
-| `Options` | table | `{}` | List of strings to choose from. |
-| `Default` | string | `nil` | Initial selected value. |
+| `Options` | table | `{}` | List of options (strings or `{Name, Value}` tables). |
+| `Default` | any | `nil` | Initial selected value. |
+| `Searchbar` | boolean | `true` | Enables built-in option search. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
 | `Callback` | function | | Fired when a new option is selected. |
 
 ## Methods
@@ -38,14 +40,11 @@ MyDropdown:Update({
 })
 ```
 
-### `:SetValue(string)`
-Manually sets the selected option. Must exist in the `Options` list.
+### `:SetValue(value)`
+Manually sets the selected option value.
 
 ### `:GetValue()`
-Returns the currently selected string.
-
-### `:Refresh(newOptions, keepCurrent)`
-Updates the options list. If `keepCurrent` is true, it attempts to keep the current selection if it exists in the new list.
+Returns the currently selected value.
 
 ### `:Lock()` / `:Unlock()`
 Standard interaction locking.

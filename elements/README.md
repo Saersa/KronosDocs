@@ -44,6 +44,7 @@ Premium elements are automatically locked with a custom title until manually unl
 | Color Picker | [colorpicker.md](colorpicker.md) |
 | Keybind | [keybind.md](keybind.md) |
 | Paragraph | [paragraph.md](paragraph.md) |
+| Index | [index.md](index.md) |
 
 ---
 

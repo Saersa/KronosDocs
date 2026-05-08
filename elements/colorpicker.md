@@ -22,6 +22,8 @@ Section:ColorPicker({
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
 | `Default` | Color3 | `white` | Initial color value. |
+| `currentColor` | Color3 | `nil` | Alias for default color value. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
 | `Callback` | function | | Fired when the color or alpha changes. |
 
 ## Features
@@ -48,7 +50,7 @@ MyPicker:Update({
 ```
 
 ### `:SetValue(Color3)`
-Manually sets the color.
+Manually sets the color value.
 
 ### `:GetValue()`
 Returns the current `Color3` value.

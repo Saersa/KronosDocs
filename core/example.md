@@ -9,7 +9,7 @@ The following is a complete, working example of the Kronos UI Library v1.1. It d
     ========================================================================
     Premium Syde-inspired UI with WindUI architecture.
     Standardized for high-performance and stealth execution.
-
+    
     Support: https://discord.gg/kronos
 ]]
 
@@ -23,7 +23,7 @@ local Kronos = loadstring(game:HttpGet("https://kronosscripts.vercel.app/raw/UIL
 -- ═══════════════════════════════════════════════════════════════
 local Window = Kronos:CreateWindow({
     Title       = "Kronos Demo UI",
-    SubTitle    = "v1.1 - Full Demo",
+    SubTitle    = "v1.1 - Production Ready",
     Icon        = "Dynamic",
     IconSize    = 48,
     Size        = Vector2.new(650, 450),
@@ -32,12 +32,12 @@ local Window = Kronos:CreateWindow({
     Acrylic     = false,
     SearchBar   = true,
     KeyExpiry   = true,
-
+    
     -- Background Image (v1.1)
     BackgroundImage = "",
     BackgroundTransparency = 0.85,
     UIBackgroundTransparency = 0.15,
-
+    
     -- Footer User Info
     UserInfo = {
         Enabled = true,
@@ -46,7 +46,7 @@ local Window = Kronos:CreateWindow({
             Window:Notify({ Title = "Profile", Content = "User info clicked!" })
         end
     },
-
+    
     -- Dual-Phase Loading Sequence
     LoadingScreen = {
         Enabled     = true,
@@ -55,7 +55,7 @@ local Window = Kronos:CreateWindow({
         Description = "Hydrating modules...",
         Icon        = "shield"
     },
-
+    
     -- Integrated Key System (with Auto-Skip Failsafe)
     Keysystem = {
         Enabled = true,
@@ -100,17 +100,20 @@ Basic:Button({
 })
 
 local FeatureToggle = Basic:Toggle({
-    Name = "Active Toggle",
-    Description = "Demonstrates a standard boolean switch.",
+    Name = "Auto Farm",
+    Description = "Demonstrates the persistent config system.",
+    ConfigId = "DemoAutoFarm", -- Unique ID for auto-saving
     Default = false,
-    Callback = function(v) print("Toggle State:", v) end
+    Callback = function(v) print("Auto Farm:", v) end
 })
 
 local PrecisionSlider = Basic:Slider({
-    Name = "Precision Slider",
+    Name = "Walk Speed",
     Description = "Adjust numeric values with smooth dragging.",
-    Min = 0, Max = 100, Default = 50,
-    Callback = function(v) print("Slider Value:", v) end
+    ConfigId = "DemoWalkSpeed",
+    Min = 16, Max = 500, Default = 16,
+    Suffix = " studs/s",
+    Callback = function(v) print("WalkSpeed:", v) end
 })
 
 Basic:Paragraph({
@@ -125,35 +128,48 @@ Basic:Paragraph({
 local TextInputs = InputTab:Section("Text Input Methods")
 
 TextInputs:Input({
-    Name = "Single Line Input",
-    Description = "Used for short strings like usernames.",
-    Placeholder = "Enter text...",
-    Callback = function(v) print("Input:", v) end
+    Name = "Webhook URL",
+    Description = "Persists across sessions via ConfigId.",
+    ConfigId = "WebhookInput",
+    Placeholder = "https://discord.com/api/webhooks/...",
+    Callback = function(v) print("Webhook:", v) end
 })
 
 TextInputs:Input({
-    Name = "Multi-Line Textarea",
-    Description = "Perfect for webhooks or scripts.",
+    Name = "Multi-Line Script",
+    Description = "Perfect for code snippets.",
     Type = "Textarea",
-    Placeholder = "Enter long content here...",
-    Callback = function(v) print("Textarea:", v) end
+    Placeholder = "print('Hello Kronos')",
+    Callback = function(v) print("Script Content Updated") end
 })
 
 local Selection = InputTab:Section("Selection Menus", { Boxed = true })
 
-Selection:Dropdown({
-    Name = "Single Selection",
-    Options = {"Option A", "Option B", "Option C"},
-    Default = "Option A",
-    Callback = function(v) print("Selected:", v) end
+local MainDropdown = Selection:Dropdown({
+    Name = "Active Weapon",
+    Description = "Search UI enabled by default.",
+    ConfigId = "WeaponSelect",
+    Options = {"Sword", "Bow", "Magic Staff"},
+    Default = "Sword",
+    Callback = function(v) print("Equipped:", v) end
+})
+
+Selection:Button({
+    Name = "Refresh Shop List",
+    Callback = function()
+        MainDropdown:Refresh({"Greatsword", "Longbow", "Chaos Wand"}, true)
+        Window:Notify({ Title = "Inventory", Content = "Shop list updated!" })
+    end
 })
 
 Selection:MultiDropdown({
-    Name = "Multi Selection",
-    Description = "Choose one or more options.",
-    Options = {"Speed", "Jump", "Fly", "Infinite"},
-    Default = {"Speed"},
-    Callback = function(v) print("Multi Select:", table.concat(v, ", ")) end
+    Name = "Auto-Loot Filters",
+    Description = "Select items to collect automatically (search disabled).",
+    ConfigId = "LootFilters",
+    Searchbar = false,
+    Options = {"Gold", "Iron", "Wood", "Stone", "Potions"},
+    Default = {"Gold", "Potions"},
+    Callback = function(v) print("Looting:", table.concat(v, ", ")) end
 })
 
 -- ═══════════════════════════════════════════════════════════════
@@ -162,30 +178,34 @@ Selection:MultiDropdown({
 local Advanced = AdvancedTab:Section("Special Interaction")
 
 Advanced:HoldButton({
-    Name = "Hold to Execute",
-    Description = "Prevents accidental triggers.",
-    Duration = 2,
+    Name = "Self Destruct",
+    Description = "Requires a 3-second hold to trigger.",
+    Duration = 3,
     Callback = function()
-        Window:Notify({ Title = "Success", Content = "Action executed after hold!" })
+        Window:Notify({ Title = "Boom", Content = "Self destruct activated!" })
     end
 })
 
 Advanced:Keybind({
-    Name = "Quick Trigger",
-    Button = Enum.KeyCode.X,
-    Callback = function() print("Keybind Activated!") end
+    Name = "Menu Bind",
+    ConfigId = "MenuToggleBind",
+    Button = Enum.KeyCode.RightShift,
+    Callback = function() print("Toggle Key Pressed!") end
 })
 
 Advanced:KeybindToggle({
-    Name = "Toggle Bind (F)",
+    Name = "Fly (F)",
+    ConfigId = "FlyToggleBind",
     Button = Enum.KeyCode.F,
-    Callback = function(v) print("Bind Toggle:", v) end
+    Callback = function(v) print("Flying:", v) end
 })
 
 Advanced:ColorPicker({
-    Name = "Accent Color",
-    Default = Color3.fromRGB(255, 77, 77),
-    Callback = function(v) print("Color Selected:", v) end
+    Name = "Chams Color",
+    Description = "Customizable ESP highlighting.",
+    ConfigId = "ChamsColor",
+    Default = Color3.fromRGB(0, 255, 255),
+    Callback = function(v) print("ESP Color Updated") end
 })
 
 -- ═══════════════════════════════════════════════════════════════
@@ -194,14 +214,14 @@ Advanced:ColorPicker({
 local VIP = PremiumTab:Section("VIP Features", { Boxed = true })
 
 VIP:Button({
-    Name = "Kill All Server",
+    Name = "Instant Win",
     Premium = true,
     LockedTitle = "PURCHASE VIP AT .GG/KRONOS",
     Callback = function() print("Premium Action!") end
 })
 
 VIP:Toggle({
-    Name = "God Mode",
+    Name = "Infinite Health",
     Premium = true,
     LockedTitle = "VIP ONLY",
     Callback = function(v) print("God Mode:", v) end
@@ -210,24 +230,16 @@ VIP:Toggle({
 local ManualLock = PremiumTab:Section("Manual Control")
 
 local TargetToggle = ManualLock:Toggle({
-    Name = "Locked by Default",
+    Name = "Module Locked",
     Description = "This can be unlocked via the button below."
 })
 TargetToggle:Lock()
 
 ManualLock:Button({
-    Name = "Unlock Toggle Above",
+    Name = "Unlock Module",
     Callback = function()
         TargetToggle:Unlock()
-        Window:Notify({ Title = "System", Content = "Module unlocked successfully." })
-    end
-})
-
-ManualLock:Button({
-    Name = "Re-Lock Toggle Above",
-    Callback = function()
-        TargetToggle:Lock()
-        Window:Notify({ Title = "System", Content = "Module locked." })
+        Window:Notify({ Title = "Security", Content = "Module unlocked." })
     end
 })
 
@@ -237,15 +249,15 @@ ManualLock:Button({
 local Feedback = CoreTab:Section("Live API Demo", { Boxed = true, Rounded = false })
 
 local InfoCard = Feedback:Paragraph({
-    Title = "Dynamic Property Update",
-    Description = "This card's content will change in 10 seconds.",
-    Icon = "info",
+    Title = "Status Report",
+    Description = "Waiting for data synchronization...",
+    Icon = "refresh-cw",
     Buttons = {
-        ["Manual Update"] = function()
+        ["Sync Now"] = function()
             PrecisionSlider:Update({
-                Title = "Manually Updated!",
-                Description = "You triggered an :Update() call on a slider element.",
-                Icon = "check-circle"
+                Title = "Speed Overridden",
+                Description = "Value updated via external API call.",
+                Icon = "zap"
             })
         end
     }
@@ -253,14 +265,14 @@ local InfoCard = Feedback:Paragraph({
 
 task.delay(10, function()
     InfoCard:Update({
-        Title = "Auto-Updated!",
-        Description = "This content was refreshed via the :Update() method after 10 seconds.",
+        Title = "System Online",
+        Description = "All modules synced with cloud database.",
         Icon = "check-circle"
     })
-
+    
     FeatureToggle:Update({
-        Name = "Renamed Toggle",
-        Description = "Even interactive elements can be renamed on the fly."
+        Name = "Auto Farm (Enabled)",
+        Description = "The script is now actively gathering resources."
     })
 end)
 
@@ -270,39 +282,31 @@ end)
 local RuntimeDemo = AdvancedTab:Section("Runtime API")
 
 local HiddenSlider = RuntimeDemo:Slider({
-    Name = "Hidden Slider",
-    Description = "This slider is hidden by default.",
-    Min = 0, Max = 50, Default = 25,
-    Callback = function(v) print("Hidden Slider:", v) end
+    Name = "Debug Value",
+    Min = 0, Max = 100, Default = 0,
+    Callback = function(v) end
 })
 HiddenSlider:SetVisible(false)
 
 RuntimeDemo:Button({
-    Name = "Show Hidden Slider",
+    Name = "Show Debug Controls",
     Callback = function()
         HiddenSlider:SetVisible(true)
-        Window:Notify({ Title = "Visibility", Content = "Slider is now visible!" })
+        Window:Notify({ Title = "Debug", Content = "Controls revealed." })
     end
 })
 
 RuntimeDemo:Button({
-    Name = "Hide Slider Again",
-    Callback = function()
-        HiddenSlider:SetVisible(false)
-    end
-})
-
-RuntimeDemo:Button({
-    Name = "Show Dialog",
+    Name = "Manual Dialog",
     Callback = function()
         Window:Dialog({
-            Title = "Confirm Action",
-            Content = "Are you sure you want to proceed?",
+            Title = "Save Config?",
+            Content = "Would you like to overwrite your existing settings?",
             Buttons = {
-                ["Yes"] = function()
-                    Window:Notify({ Title = "Confirmed", Content = "Action completed." })
+                ["Overwrite"] = function()
+                    Window:SaveSettings()
                 end,
-                ["No"] = function() end
+                ["Cancel"] = function() end
             }
         })
     end
@@ -314,50 +318,64 @@ RuntimeDemo:Button({
 local Styles = AppearanceTab:Section("Aesthetics")
 
 Styles:Dropdown({
-    Name = "Active Theme",
+    Name = "UI Theme",
     Options = {"Batman", "Ocean", "Space", "Disco", "KronosRed", "KronosBlue", "KronosPurple", "KronosGreen"},
     Default = "Space",
     Callback = function(v) Kronos:SetTheme(v) end
 })
 
 Styles:Button({
-    Name = "Toggle Background Image",
+    Name = "Set Background Image",
     Callback = function()
-        local current = Window.Root:FindFirstChild("BackgroundImage")
-        if current and current.Visible then
-            Window:SetBackgroundImage(nil)
-            Window:Notify({ Title = "Background", Content = "Background image removed." })
-        else
-            Window:SetBackgroundImage("rbxassetid://11419713314", 0.85)
-            Window:Notify({ Title = "Background", Content = "Background image applied!" })
-        end
-    end
-})
-
-Styles:Button({
-    Name = "Save Configuration",
-    Callback = function()
-        Window:Dialog({
-            Title = "Save Configuration?",
-            Content = "Do you want to save your current settings?",
-            Buttons = {
-                ["Yes"] = function()
-                    Window:SaveSettings()
-                    Window:Notify({ Title = "Saved", Content = "Configuration saved to disk." })
-                end,
-                ["No"] = function() end
-            }
-        })
+        Window:SetBackgroundImage("rbxassetid://11419713314", 0.85)
+        Window:Notify({ Title = "Theme", Content = "Background updated!" })
     end
 })
 
 -- ═══════════════════════════════════════════════════════════════
--- 11. INITIAL NOTIFICATION
+-- 11. UNIVERSAL INDEX REFERENCE
+-- ═══════════════════════════════════════════════════════════════
+local IndexTab = Window:Tab({ Name = "Quick Index", Icon = "book-open" })
+IndexTab:Index({
+    Title = "Quick Index",
+    Description = "Universal lookup for mobs, items, drops, XP, and notes.",
+    Searchbar = true,
+    Collapsible = true,
+    DefaultCollapsed = true,
+    Data = {
+        {
+            Name = "Goblin",
+            Data = {
+                Drops = "Gold, Leather",
+                XP = "45",
+                Notes = "Common early-game enemy"
+            }
+        },
+        {
+            Name = "Health Potion",
+            Data = {
+                Effect = "Restore 100 HP",
+                Rarity = "Common",
+                Location = "Shop"
+            }
+        },
+        {
+            Name = "Crystal Dragon",
+            Data = {
+                Drops = "Dragon Scale, Crystal Claw",
+                XP = "1200",
+                Rarity = "Boss"
+            }
+        }
+    }
+})
+
+-- ═══════════════════════════════════════════════════════════════
+-- 12. INITIAL NOTIFICATION
 -- ═══════════════════════════════════════════════════════════════
 Window:Notify({
-    Title = "Kronos Initialized",
-    Content = "All modules ready. Press RightControl to toggle UI.",
+    Title = "Kronos v1.1 Loaded",
+    Content = "Premium UI initialized. Press RightControl to toggle.",
     Duration = 5
 })
-
 ```

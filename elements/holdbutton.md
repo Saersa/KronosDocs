@@ -21,7 +21,8 @@ Section:HoldButton({
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
-| `Duration` | number | `1` | Time in seconds required to hold. |
+| `Duration` | number | `2` | Time in seconds required to hold. |
+| `HoldDuration` | number | `2` | Alias of `Duration`. |
 | `Callback` | function | | Fired after the duration is met. |
 
 ## Methods

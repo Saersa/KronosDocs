@@ -20,7 +20,7 @@ Window:Notify({
 | `Title` | string | | Bold header text. |
 | `Content` | string | | Main body text. |
 | `Duration` | number | `5` | Time in seconds before the notification fades. |
-| `Icon` | string | `nil` | Optional icon name. |
+| `Buttons` | table | `nil` | Optional dictionary of `[ButtonText] = Callback`; when provided, notification becomes action-based. |
 
 ---
 

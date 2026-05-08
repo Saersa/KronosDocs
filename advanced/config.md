@@ -20,7 +20,7 @@ Section:Toggle({
 The library handles auto-saving by default if enabled in the Settings popup. You can also trigger it manually:
 
 ### `Kronos:SaveConfig(filename)`
-Saves all registered elements to a file in the `Kronos/configs/` folder.
+Saves all registered elements to `Kronos/<filename>.json`.
 
 ```lua
 Kronos:SaveConfig("MyCustomSettings")
@@ -34,7 +34,12 @@ Kronos:LoadConfig("MyCustomSettings")
 ```
 
 ## Global Settings
-The library automatically saves its own internal state (Theme, Blur, Lock state) to `Kronos/settings.json`.
+The library can also save internal UI state (Theme, Blur, Lock, AutoSave) to `Kronos/settings.json` via:
+
+```lua
+Window:SaveSettings()
+Window:LoadSettings()
+```
 
 ---
 

@@ -31,12 +31,16 @@ Section:Input({
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
-| `Description` | string | `nil` | Optional text shown below the title. |
+| `Title` | string | `Name` | Alias for display title. |
+| `Description` / `Desc` | string | `nil` | Optional text shown below the title. |
 | `Type` | string | `"Input"` | `"Input"` for single line, `"Textarea"` for multi-line. |
-| `Placeholder` | string | `"Enter text..."`| Ghost text shown when empty. |
-| `Numeric` | boolean | `false` | (Coming Soon) Restricts input to numbers. |
-| `Finished` | boolean | `false` | If true, callback only fires on focus lost (Enter/Click away). |
-| `Callback` | function | | Fired on text change (or focus lost if `Finished` is true). |
+| `Icon` | string | `nil` | Optional title icon. |
+| `Placeholder` | string | `"Type here..."`| Ghost text shown when empty. |
+| `Value` / `Default` | string | `""` | Initial text value. |
+| `MinimumLength` | number | `0` | Minimum allowed length (validated on focus lost). |
+| `MaximumLength` | number | `9999` | Maximum allowed length (validated on focus lost). |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
+| `Callback` | function | | Fired when input focus is lost. |
 
 ## Methods
 

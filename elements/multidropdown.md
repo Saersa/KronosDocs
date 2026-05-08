@@ -22,8 +22,10 @@ Section:MultiDropdown({
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
-| `Options` | table | `{}` | List of strings to choose from. |
-| `Default` | table | `{}` | List of initially selected strings. |
+| `Options` | table | `{}` | List of options (strings or `{Name, Value}` tables). |
+| `Default` | table/any | `{}` | Initial selected values. |
+| `Searchbar` | boolean | `true` | Enables built-in option search. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
 | `Callback` | function | | Fired when the selection changes. |
 
 ## Methods
@@ -31,14 +33,13 @@ Section:MultiDropdown({
 ### `:Update(config)`
 Updates options or labels.
 
-### `:SetValue(table)`
-Manually sets the selection list.
+### `:SetValue(valueOrTable)`
+Manually sets selection.
 
 ### `:GetValue()`
 Returns a table of currently selected strings.
 
-### `:Refresh(newOptions, keepCurrent)`
-Standard options refresh.
+Selections and options should be updated through `:Update(config)`.
 
 ### `:Lock()` / `:Unlock()`
 Standard interaction locking.

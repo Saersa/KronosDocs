@@ -21,10 +21,15 @@ local Info = Section:Paragraph({
 
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `Title` | string | | Bold header text. |
-| `Description` | string | | Main body text. |
+| `Title` / `Name` | string | `"Paragraph"` | Header text. |
+| `Description` / `Content` / `Desc` | string | `""` | Main body text. |
 | `Icon` | string | `nil` | Lucide icon name. |
-| `Buttons` | table | `{}` | Dictionary of `[ButtonText] = Callback`. |
+| `IconSide` | string | `"Left"` | Icon placement (`"Left"` or `"Right"`). |
+| `Thumbnail` | string | `nil` | Optional top banner image (`"Dynamic"` supported). |
+| `ThumbnailHeight` | number | `100` | Banner height in pixels. |
+| `ThumbnailSize` | UDim2 | `nil` | Optional banner size override. |
+| `Image` | string | `nil` | Optional large content image. |
+| `Buttons` | table | `{}` | Dictionary of `[ButtonText] = Callback` or `{ Callback, Color }`. |
 
 ## Methods
 

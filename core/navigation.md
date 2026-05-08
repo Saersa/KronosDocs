@@ -32,6 +32,13 @@ local CombatTab = CombatSection:Tab({
 - `Name`: The display name of the tab.
 - `Icon`: (Optional) The Lucide icon name for the tab.
 
+### Direct Tab Elements
+Tabs can also create elements directly. Kronos creates an internal default section automatically.
+
+```lua
+CombatTab:Toggle({ Name = "Enabled", Default = false })
+```
+
 ## 3. Page Sections
 
 Page sections are used to visually group elements within a tab. They create a titled box on the page.
@@ -67,6 +74,7 @@ Once a Page Section is created, you use it to add interactive elements:
 | `Section:KeybindToggle(...)` | A keybind with an integrated toggle state. |
 | `Section:HoldButton(...)` | A button that requires holding to activate. |
 | `Section:Paragraph(...)` | A rich text info card with optional buttons. |
+| `Section:Index(...)` | A searchable index/list panel element. |
 
 ---
 

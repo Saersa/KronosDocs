@@ -21,6 +21,7 @@
 * [Color Picker](elements/colorpicker.md)
 * [Keybind](elements/keybind.md)
 * [Paragraph](elements/paragraph.md)
+* [Index](elements/index.md)
 
 ## Advanced
 * [Premium & Locking](advanced/premium.md)

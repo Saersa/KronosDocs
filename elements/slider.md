@@ -24,10 +24,10 @@ Section:Slider({
 | :--- | :--- | :--- | :--- |
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
-| `Min` | number | `0` | Minimum allowed value. |
-| `Max` | number | `100` | Maximum allowed value. |
-| `Default` | number | `50` | Initial value. |
-| `Suffix` | string | `""` | Text appended to the number display. |
+| `Min` | number | | Minimum allowed value. |
+| `Max` | number | | Maximum allowed value. |
+| `Default` | number | `Min` | Initial value. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
 | `Callback` | function | | Fired when the value changes. |
 
 ## Methods

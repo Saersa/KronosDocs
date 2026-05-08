@@ -22,6 +22,9 @@ Section:Toggle({
 | `Name` | string | | The display name. |
 | `Description` | string | `nil` | Optional text shown below the title. |
 | `Default` | boolean | `false` | Initial state. |
+| `ConfigId` | string | `nil` | Registers the element in config save/load. |
+| `Premium` | boolean | `false` | Locks for non-premium users. |
+| `LockedTitle` | string | `nil` | Custom title shown when locked. |
 | `Callback` | function | | Fired when the state toggles. |
 
 ## Methods

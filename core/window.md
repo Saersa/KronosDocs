@@ -16,14 +16,14 @@ local Window = Kronos:CreateWindow(options)
 | `SubTitle` | string | `""` | Secondary label for versioning or status. |
 | `Icon` | string | `nil` | Asset ID for branding. Use `"Dynamic"` for theme default. |
 | `IconSize` | number | `48` | Size of the header icon in pixels. |
-| `Theme` | string | `"Batman"` | Initial color palette. |
+| `Theme` | string | `"KronosRed"` | Initial color palette. |
 | `Size` | Vector2 | `600, 400` | Default window dimensions. |
 | `ToggleUI` | KeyCode | `RightControl` | Hotkey to hide/show the interface. |
 | `Acrylic` | boolean | `false` | Enables glassmorphic background blur overlay. |
 | `BackgroundImage` | string | `""` | Optional Roblox asset ID for the window background. Hidden when empty. |
 | `BackgroundTransparency` | number | `0.8` | The transparency of the background image itself. |
 | `UIBackgroundTransparency` | number | `0` | Controls Sidebar and Content panel transparency so backgrounds show through. |
-| `SearchBar` | boolean | `false` | Enables global element search in the sidebar. |
+| `SearchBar` | boolean | `true` | Enables global element search in the sidebar. |
 | `KeyExpiry` | boolean | `false` | Shows Junkie license expiration in the settings popup. |
 | `UserInfo` | table | `nil` | Configures footer user profile display. |
 | `LoadingScreen` | table | `nil` | Configures the splash screen sequence. |
@@ -52,6 +52,9 @@ Kronos uses a **Background-Hydration** pattern to ensure zero lag. When you call
 | `Window:Dialog(options)` | Shows a confirmation dialog with buttons. |
 | `Window:SaveSettings()` | Manually saves theme, blur, and lock state. |
 | `Window:LoadSettings()` | Loads saved settings from disk. |
+| `Window:Tab(tabOptions)` | Creates a tab directly in the sidebar list. |
+| `Window:Section(sectionOptions)` | Creates a sidebar grouping section for tabs. |
+| `Window:CreateIndex(indexOptions)` / `Window:Index(indexOptions)` | Creates an index tab from index data. |
 
 ## Full Example
 

@@ -7,11 +7,13 @@ The Kronos Key System is an automated security layer that gates your script behi
 ```lua
 Keysystem = {
     Enabled     = true,
-    SaveKey     = true,         -- Caches key locally for auto-skip
+    SaveKey     = true,          -- Caches key locally for auto-skip
     Title       = "Verification",
     Subtitle    = "Kronos Access",
-    Note        = "Join: discord.gg/kronos",
-    FileName    = "MyScriptKey", -- Filename for the local cache
+    Note        = "Join: discord.gg/kronos", -- Alias: Description
+    Icon        = "Dynamic",     -- Uses current theme icon when "Dynamic"
+    Thumbnail   = "Dynamic",     -- Uses current theme banner when "Dynamic"
+    FileName    = "MyScriptKey", -- Filename for the local cache (default: "Key")
     
     Provider = {
         Name        = "Junkie",
@@ -23,8 +25,8 @@ Keysystem = {
 
 ## Smart Features
 
-### 1. Auto-Skip Failsafe (3s Countdown)
-If the library detects a valid cached key (via `getgenv().SCRIPT_KEY` or the local `FileName.txt`), it will display a **3-second countdown** on the "Verify Key" button. During this countdown, the user can **click anywhere** to cancel the auto-verification. This prevents instant-kicks from providers like Junkie when a saved key has expired.
+### 1. Auto-Skip Failsafe (5s Countdown)
+If the library detects a cached key (via `getgenv().SCRIPT_KEY` or local `FileName.txt` when `SaveKey = true`), it shows a **5-second countdown** on the "Verify Key" button before auto-validation. During this countdown, the user can **click the Verify button** to cancel auto-verification and retry manually.
 
 > **Why?** Without the failsafe, expired saved keys would trigger immediate validation failure, which some providers respond to by disconnecting the user. The countdown gives the user a chance to cancel and manually enter a new key.
 
@@ -33,7 +35,7 @@ If a key check fails (manual or automatic), the UI will trigger a **shake animat
 
 ### 3. Real-time Status
 The verification button provides live feedback during the process:
-*   **"Auto-verifying in 3... (Click to cancel)"**: Countdown phase.
+*   **"Auto-verifying in 5... (Click to cancel)"**: Countdown phase.
 *   **"Verifying key..."**: While contacting the provider API.
 *   **"Valid Key"**: On successful authentication (before transitioning).
 *   **"Invalid key"**: When the provider rejects the token.
@@ -49,6 +51,17 @@ If you prefer to use a static key or a table of keys:
 Keysystem = {
     Enabled = true,
     Key = "secret-key-123" -- or {"key1", "key2"}
+}
+```
+
+You can also provide a custom validator:
+
+```lua
+Keysystem = {
+    Enabled = true,
+    KeyValidator = function(input)
+        return input == "secret-key-123", "Invalid key"
+    end
 }
 ```
 
