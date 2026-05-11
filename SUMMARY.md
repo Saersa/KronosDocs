@@ -22,6 +22,7 @@
 * [Keybind](elements/keybind.md)
 * [Paragraph](elements/paragraph.md)
 * [Index](elements/index.md)
+* [Console](elements/console.md)
 
 ## Advanced
 * [Premium & Locking](advanced/premium.md)

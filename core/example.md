@@ -9,7 +9,7 @@ The following is a complete, working example of the Kronos UI Library v1.1. It d
     ========================================================================
     Premium Syde-inspired UI with WindUI architecture.
     Standardized for high-performance and stealth execution.
-    
+
     Support: https://discord.gg/kronos
 ]]
 
@@ -32,12 +32,12 @@ local Window = Kronos:CreateWindow({
     Acrylic     = false,
     SearchBar   = true,
     KeyExpiry   = true,
-    
+
     -- Background Image (v1.1)
     BackgroundImage = "",
     BackgroundTransparency = 0.85,
     UIBackgroundTransparency = 0.15,
-    
+
     -- Footer User Info
     UserInfo = {
         Enabled = true,
@@ -46,7 +46,7 @@ local Window = Kronos:CreateWindow({
             Window:Notify({ Title = "Profile", Content = "User info clicked!" })
         end
     },
-    
+
     -- Dual-Phase Loading Sequence
     LoadingScreen = {
         Enabled     = true,
@@ -55,7 +55,7 @@ local Window = Kronos:CreateWindow({
         Description = "Hydrating modules...",
         Icon        = "shield"
     },
-    
+
     -- Integrated Key System (with Auto-Skip Failsafe)
     Keysystem = {
         Enabled = true,
@@ -70,6 +70,10 @@ local Window = Kronos:CreateWindow({
             ServiceName = "Kronos"
         }
     }
+    PremiumVisible = {
+		ShowCrown = true,
+		ShowDiscordName = true
+	}
 })
 
 -- ═══════════════════════════════════════════════════════════════
@@ -269,7 +273,7 @@ task.delay(10, function()
         Description = "All modules synced with cloud database.",
         Icon = "check-circle"
     })
-    
+
     FeatureToggle:Update({
         Name = "Auto Farm (Enabled)",
         Description = "The script is now actively gathering resources."

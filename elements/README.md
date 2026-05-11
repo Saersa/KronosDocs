@@ -45,6 +45,7 @@ Premium elements are automatically locked with a custom title until manually unl
 | Keybind | [keybind.md](keybind.md) |
 | Paragraph | [paragraph.md](paragraph.md) |
 | Index | [index.md](index.md) |
+| Console | [console.md](console.md) |
 
 ---
 
