@@ -76,6 +76,18 @@ Once a Page Section is created, you use it to add interactive elements:
 | `Section:Paragraph(...)` | A rich text info card with optional buttons. |
 | `Section:Index(...)` | A searchable index/list panel element. |
 
+### Tab-Level Methods
+
+| Method | Description |
+| :--- | :--- |
+| `Tab:CreateConsole(options)` | Creates a [Console](../elements/console.md) that fills the entire tab. |
+
+### Window-Level Methods
+
+| Method | Description |
+| :--- | :--- |
+| `Window:Popout(options)` | Creates a [Popout panel](../advanced/popout.md) toggled from any callback. |
+
 ---
 
 Next: [Elements Overview](../elements/README.md)

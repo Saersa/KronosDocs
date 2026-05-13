@@ -1,11 +1,11 @@
 # Full Example
 
-The following is a complete, working example of the Kronos UI Library v1.1. It demonstrates the initialization sequence, the dual-phase loader, the Key System, and almost every UI element available.
+The following is a complete, working example of the Kronos UI Library v1.2. It demonstrates the initialization sequence, the dual-phase loader, the Key System, Popout panels, and almost every UI element available.
 
 ```lua
 --[[
     ========================================================================
-    KRONOS UI LIBRARY - OFFICIAL DEMO & DOCUMENTATION (v1.1)
+    KRONOS UI LIBRARY - OFFICIAL DEMO & DOCUMENTATION (v1.2)
     ========================================================================
     Premium Syde-inspired UI with WindUI architecture.
     Standardized for high-performance and stealth execution.
@@ -23,7 +23,7 @@ local Kronos = loadstring(game:HttpGet("https://kronosscripts.vercel.app/raw/UIL
 -- ═══════════════════════════════════════════════════════════════
 local Window = Kronos:CreateWindow({
     Title       = "Kronos Demo UI",
-    SubTitle    = "v1.1 - Production Ready",
+    SubTitle    = "v1.2 - Production Ready",
     Icon        = "Dynamic",
     IconSize    = 48,
     Size        = Vector2.new(650, 450),
@@ -33,7 +33,7 @@ local Window = Kronos:CreateWindow({
     SearchBar   = true,
     KeyExpiry   = true,
 
-    -- Background Image (v1.1)
+    -- Background Image
     BackgroundImage = "",
     BackgroundTransparency = 0.85,
     UIBackgroundTransparency = 0.15,
@@ -63,13 +63,13 @@ local Window = Kronos:CreateWindow({
         Title = "Access Control",
         Subtitle = "Developer License",
         Note = "Join .gg/kronos for your key.",
-        FileName = "Kronos_Key",
+        FileName = "KronosKey",
         Provider = {
             Name = "Junkie",
             ServiceID = "1078290",
             ServiceName = "Kronos"
         }
-    }
+    },
     PremiumVisible = {
 		ShowCrown = true,
 		ShowDiscordName = true
@@ -106,7 +106,7 @@ Basic:Button({
 local FeatureToggle = Basic:Toggle({
     Name = "Auto Farm",
     Description = "Demonstrates the persistent config system.",
-    ConfigId = "DemoAutoFarm", -- Unique ID for auto-saving
+    ConfigId = "DemoAutoFarm",
     Default = false,
     Callback = function(v) print("Auto Farm:", v) end
 })
@@ -121,8 +121,8 @@ local PrecisionSlider = Basic:Slider({
 })
 
 Basic:Paragraph({
-    Title = "Welcome to Kronos v1.1",
-    Description = "Experience the ultimate Luau UI library with dynamic property updates, premium stealth hardening, and high-fidelity themes.",
+    Title = "Welcome to Kronos v1.2",
+    Description = "Experience the ultimate Luau UI library with Popout panels, privacy-hardened key systems, and high-fidelity themes.",
     Icon = "info"
 })
 
@@ -211,6 +211,39 @@ Advanced:ColorPicker({
     Default = Color3.fromRGB(0, 255, 255),
     Callback = function(v) print("ESP Color Updated") end
 })
+
+-- ═══════════════════════════════════════════════════════════════
+-- POPOUT CONSOLE (v1.2 - Button Toggle)
+-- ═══════════════════════════════════════════════════════════════
+local Pop = Window:Popout({
+    Title = "Side Console",
+    Icon = "terminal",
+    Position = "right",
+    Size = Vector2.new(250, 300)
+})
+
+local SideConsole = Pop:CreateConsole({
+    AutoScroll = true
+})
+
+SideConsole:AddLine({ "Side Console Initialized", Type = "Info" })
+SideConsole:AddLine({ "Tracking real-time events...", Type = "Message" })
+
+Advanced:Button({
+    Name = "Toggle Side Console",
+    Description = "Opens a modular side-extended popout window.",
+    Callback = function()
+        Pop:Toggle()
+    end
+})
+
+task.spawn(function()
+    while task.wait(10) do
+        if Pop.Visible then
+            SideConsole:AddLine({ "Popout Status: Active", Type = "Info" })
+        end
+    end
+end)
 
 -- ═══════════════════════════════════════════════════════════════
 -- 7. PREMIUM & LOCKING API
@@ -375,11 +408,34 @@ IndexTab:Index({
 })
 
 -- ═══════════════════════════════════════════════════════════════
--- 12. INITIAL NOTIFICATION
+-- 12. CONSOLE DEMO
+-- ═══════════════════════════════════════════════════════════════
+local ConsoleTab = Window:Tab({ Name = "Console", Icon = "terminal" })
+local Console = ConsoleTab:CreateConsole({
+    AutoScroll = true
+})
+
+Console:AddLine({ "Kronos Console Initialized", Type = "Info" })
+Console:AddLine({ "Loading library components...", Type = "Message" })
+
+task.delay(1.5, function()
+    Console:AddLine({ "Checking for updates...", Type = "Info" })
+    task.wait(1)
+    Console:AddLine({ "Success: Library is up to date (v1.2)", Color = Color3.fromRGB(0, 255, 150) })
+end)
+
+task.delay(4, function()
+    Console:AddLine({ "Critical: Unauthorized access attempt detected", Type = "Error" })
+    Console:AddLine({ "Warning: Heuristic bypass active", Type = "Warning" })
+    Console:AddLine({ "Update: Popout Console modules loaded (v1.2)", Type = "Info" })
+end)
+
+-- ═══════════════════════════════════════════════════════════════
+-- 13. INITIAL NOTIFICATION
 -- ═══════════════════════════════════════════════════════════════
 Window:Notify({
-    Title = "Kronos v1.1 Loaded",
-    Content = "Premium UI initialized. Press RightControl to toggle.",
+    Title = "Kronos v1.2 Loaded",
+    Content = "Premium UI initialized. Side Popouts enabled. Press RightControl to toggle.",
     Duration = 5
 })
 ```

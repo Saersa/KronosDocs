@@ -25,6 +25,7 @@
 * [Console](elements/console.md)
 
 ## Advanced
+* [Popout Panels](advanced/popout.md)
 * [Premium & Locking](advanced/premium.md)
 * [Configuration](advanced/config.md)
 * [Theming](advanced/themes.md)

@@ -28,6 +28,14 @@ local Window = Kronos:CreateWindow(options)
 | `UserInfo`                 | table   | `nil`          | Configures footer user profile display.                                      |
 | `LoadingScreen`            | table   | `nil`          | Configures the splash screen sequence.                                       |
 | `Keysystem`                | table   | `nil`          | Configures integrated authentication.                                        |
+| `PremiumVisible`           | table   | `nil`          | Configures premium badge visibility (crown, Discord name).                   |
+
+### PremiumVisible Options
+
+| Property          | Type    | Default | Description                                                     |
+| :---------------- | :------ | :------ | :-------------------------------------------------------------- |
+| `ShowCrown`       | boolean | `false` | Shows a crown badge next to the user avatar for premium users.  |
+| `ShowDiscordName` | boolean | `false` | Replaces display name with the user's Discord name from Junkie. |
 
 ## Advanced Loading Logic
 
@@ -41,29 +49,30 @@ Kronos uses a **Background-Hydration** pattern to ensure zero lag. When you call
 
 ## Window Methods
 
-| Method                                        | Description                                              |
-| :-------------------------------------------- | :------------------------------------------------------- |
-| `Window:SetTitle(text)`                       | Changes the window title dynamically.                    |
-| `Window:SetSubtitle(text)`                    | Changes the subtitle dynamically.                        |
-| `Window:SetBackgroundImage(id, transparency)` | Sets or clears the background image. Pass `nil` to hide. |
-| `Window:SetBlur(val)`                         | Sets blur overlay. `1` = enabled, `0` = disabled.        |
-| `Window:SetToggleKeybind(keyCode)`            | Changes the UI toggle hotkey at runtime.                 |
-| `Window:Notify(options)`                      | Displays a notification toast.                           |
-| `Window:Dialog(options)`                      | Shows a confirmation dialog with buttons.                |
-| `Window:SaveSettings()`                       | Manually saves theme, blur, and lock state.              |
-| `Window:LoadSettings()`                       | Loads saved settings from disk.                          |
-| `Window:Tab(tabOptions)`                      | Creates a tab directly in the sidebar list.              |
-| `Window:Section(sectionOptions)`              | Creates a sidebar grouping section for tabs.             |
-| `Window:Index(indexOptions)`                  | Creates an index tab from index data.                    |
-| `Window:OnClose(callback)`                    | Calls a function when the window is closed.              |
-| `Window:Destroy()`                            | Destroys the window.                                     |
+| Method                                        | Description                                               |
+| :-------------------------------------------- | :-------------------------------------------------------- |
+| `Window:SetTitle(text)`                       | Changes the window title dynamically.                     |
+| `Window:SetSubtitle(text)`                    | Changes the subtitle dynamically.                         |
+| `Window:SetBackgroundImage(id, transparency)` | Sets or clears the background image. Pass `nil` to hide.  |
+| `Window:SetBlur(val)`                         | Sets blur overlay. `1` = enabled, `0` = disabled.         |
+| `Window:SetToggleKeybind(keyCode)`            | Changes the UI toggle hotkey at runtime.                  |
+| `Window:Notify(options)`                      | Displays a notification toast.                            |
+| `Window:Dialog(options)`                      | Shows a confirmation dialog with buttons.                 |
+| `Window:Popout(options)`                      | Creates a [Popout panel](../advanced/popout.md). _(v1.2)_ |
+| `Window:SaveSettings()`                       | Manually saves theme, blur, and lock state.               |
+| `Window:LoadSettings()`                       | Loads saved settings from disk.                           |
+| `Window:Tab(tabOptions)`                      | Creates a tab directly in the sidebar list.               |
+| `Window:Section(sectionOptions)`              | Creates a sidebar grouping section for tabs.              |
+| `Window:Index(indexOptions)`                  | Creates an index tab from index data.                     |
+| `Window:OnClose(callback)`                    | Calls a function when the window is closed.               |
+| `Window:Destroy()`                            | Destroys the window.                                      |
 
 ## Full Example
 
 ```lua
 local Window = Kronos:CreateWindow({
     Title       = "Kronos - Test",
-    SubTitle    = "v1.1",
+    SubTitle    = "v1.2",
     Icon        = "Dynamic",
     IconSize    = 48,
     Theme       = "Space",
@@ -87,6 +96,11 @@ local Window = Kronos:CreateWindow({
         Duration    = 3,
         Title       = "Project Kronos",
         Description = "Loading core modules..."
+    },
+
+    PremiumVisible = {
+        ShowCrown = true,
+        ShowDiscordName = true
     }
 })
 ```
